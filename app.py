@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request
 import requests
 import joblib
 
@@ -7,7 +7,7 @@ import subprocess
 
 app = Flask(__name__)
 
-# Auto-create model files if missing
+
 
 if not os.path.exists("model/random_forest.pkl"):
 
@@ -140,8 +140,13 @@ def get_pollution_data(lat, lon):
 # CITY AQI PREDICTION
 # =========================
 
-@app.route('/predict_city', methods=['POST'])
+@app.route('/predict_city', methods=['GET', 'POST'])
 def predict_city():
+
+    if request.method == "GET":
+        return redirect('/prediction')
+
+
 
     try:
 
