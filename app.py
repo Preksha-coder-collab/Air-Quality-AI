@@ -5,6 +5,8 @@ import joblib
 import os
 import subprocess
 
+app = Flask(__name__)
+
 # Auto-create model files if missing
 
 if not os.path.exists("model/random_forest.pkl"):
@@ -26,7 +28,7 @@ scaler = joblib.load(
     "model/scaler.pkl"
 )
 
-app = Flask(__name__)
+
 
 
 
@@ -507,5 +509,13 @@ def sustainability():
 # RUN APP
 # =========================
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    import os
+
+    port = int(os.environ.get("PORT", 5000))
+
+    app.run(
+        host="0.0.0.0",
+        port=port,
+        debug=True
+    )
