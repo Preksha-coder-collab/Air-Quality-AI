@@ -1,0 +1,378 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:#f5fff7;
+    color:#333;
+    line-height:1.6;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    background:#66bb6a !important;
+    padding:15px 0;
+}
+
+.navbar-brand{
+    font-size:1.4rem;
+    font-weight:bold;
+    color:white !important;
+}
+
+.nav-link{
+    margin-left:15px;
+    font-weight:500;
+    color:white !important;
+}
+
+.nav-link:hover{
+    color:#e8f5e9 !important;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero-section{
+    min-height:85vh;
+    display:flex;
+    align-items:center;
+
+    background:linear-gradient(
+        135deg,
+        #e8f5e9,
+        #c8e6c9,
+        #a5d6a7
+    );
+
+    color:#1b5e20;
+}
+
+.hero-icon{
+    color:#43a047;
+}
+
+.hero-section h1{
+    font-size:3rem;
+    font-weight:bold;
+}
+
+.hero-section p{
+    font-size:1.2rem;
+}
+
+/* =========================
+   ABOUT HERO
+========================= */
+
+.about-hero{
+    background:linear-gradient(
+        135deg,
+        #c8e6c9,
+        #81c784
+    );
+
+    color:#1b5e20;
+    padding:80px 20px;
+}
+
+/* =========================
+   PREDICTION HEADER
+========================= */
+
+.prediction-header{
+    background:linear-gradient(
+        135deg,
+        #c8e6c9,
+        #66bb6a
+    );
+
+    color:#1b5e20;
+    padding:70px 20px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn-primary{
+    background:#4caf50;
+    border:none;
+    transition:0.3s;
+}
+
+.btn-primary:hover{
+    background:#2e7d32;
+    transform:translateY(-2px);
+}
+
+.btn-success{
+    background:#4caf50;
+    border:none;
+}
+
+.btn-success:hover{
+    background:#2e7d32;
+}
+
+.btn-outline-light{
+    border-color:#2e7d32;
+    color:#2e7d32;
+}
+
+.btn-outline-light:hover{
+    background:#4caf50;
+    color:white;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    border:none;
+    border-radius:20px;
+    transition:0.3s;
+    background:white;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+}
+
+.card-body{
+    padding:25px;
+}
+
+/* =========================
+   FEATURE ICONS
+========================= */
+
+.feature-icon{
+    font-size:3rem;
+    color:#4caf50;
+}
+
+/* =========================
+   STATS SECTION
+========================= */
+
+.stats-section{
+    background:#4caf50;
+    color:white;
+    padding:60px 0;
+}
+
+.stats-section h2{
+    font-size:2.2rem;
+    font-weight:bold;
+}
+
+/* =========================
+   FORMS
+========================= */
+
+.form-control{
+    border-radius:10px;
+    padding:12px;
+    border:1px solid #a5d6a7;
+}
+
+.form-control:focus{
+    border-color:#4caf50;
+    box-shadow:0 0 10px rgba(76,175,80,0.3);
+}
+
+/* =========================
+   PREDICTION RESULT
+========================= */
+
+.alert-success{
+    border-radius:15px;
+    padding:30px;
+    background:#e8f5e9;
+    color:#1b5e20;
+    border:1px solid #81c784;
+}
+
+.alert-success h2{
+    font-weight:bold;
+}
+
+.alert-success h4{
+    margin-top:10px;
+}
+
+.alert-danger{
+    border-radius:15px;
+}
+
+/* =========================
+   TECHNOLOGY SECTION
+========================= */
+
+.bg-light{
+    background:#f5fff7 !important;
+}
+
+.bg-light h5{
+    font-weight:600;
+    color:#43a047;
+}
+
+/* =========================
+   RESPONSIBLE AI SECTION
+========================= */
+
+.responsible-ai{
+    background:white;
+    padding:60px 20px;
+}
+
+.responsible-ai h2{
+    color:#2e7d32;
+    font-weight:bold;
+}
+
+.responsible-ai li{
+    font-size:1.1rem;
+    margin-bottom:12px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#2e7d32 !important;
+    color:white;
+    margin-top:auto;
+}
+
+footer p{
+    font-size:0.95rem;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:992px){
+
+    .hero-section{
+        text-align:center;
+        padding:80px 20px;
+    }
+
+    .hero-section h1{
+        font-size:2.3rem;
+    }
+
+    .hero-icon{
+        margin-top:40px;
+        font-size:7rem !important;
+    }
+}
+
+@media(max-width:768px){
+
+    .hero-section h1{
+        font-size:2rem;
+    }
+
+    .display-4{
+        font-size:2rem;
+    }
+
+    .display-5{
+        font-size:1.8rem;
+    }
+
+    .card{
+        margin-bottom:20px;
+    }
+}
+
+@media(max-width:576px){
+
+    .hero-section{
+        min-height:auto;
+        padding:60px 15px;
+    }
+
+    .hero-icon{
+        font-size:5rem !important;
+    }
+
+    .btn-lg{
+        width:100%;
+        margin-bottom:10px;
+    }
+}
+.sustainability-card{
+
+    transition:0.4s;
+
+}
+
+.sustainability-card:hover{
+
+    transform:
+    translateY(-10px)
+    scale(1.02);
+
+}
+
+.hero-icon{
+
+    animation:
+    float 3s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+.sustainability-card{
+    border-radius:20px;
+    height:100%;
+    transition:0.3s;
+}
+
+.sustainability-card:hover{
+    transform:translateY(-8px);
+}
+
+.list-group-item{
+    border:none;
+    padding:12px;
+}
+
+#challengeText{
+    font-size:1.5rem;
+    font-weight:bold;
+    color:#2e7d32;
+}

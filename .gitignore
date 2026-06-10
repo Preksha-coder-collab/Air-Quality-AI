@@ -1,0 +1,5 @@
+model/random_forest.pkl
+model/scaler.pkl
+
+__pycache__/
+*.pyc
