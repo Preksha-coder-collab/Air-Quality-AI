@@ -2,14 +2,39 @@ from flask import Flask, render_template, request
 import requests
 import joblib
 
+import os
+import subprocess
+
+# Auto-create model files if missing
+
+if not os.path.exists("model/random_forest.pkl"):
+
+    print("Model not found. Training model...")
+
+    subprocess.run(
+        ["python", "model/train_model.py"],
+        check=True
+    )
+
+# Load trained model
+
+model = joblib.load(
+    "model/random_forest.pkl"
+)
+
+scaler = joblib.load(
+    "model/scaler.pkl"
+)
+
 app = Flask(__name__)
 
-# Load trained model and scaler
-model = joblib.load("model/random_forest.pkl")
-scaler = joblib.load("model/scaler.pkl")
 
 
-API_KEY = "OpenWeather API Key"
+
+
+API_KEY = os.environ.get(
+    "OPENWEATHER_API_KEY"
+)
 
 
 # =========================
