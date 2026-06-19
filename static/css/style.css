@@ -376,3 +376,83 @@ transform:translateY(0);
     font-weight:bold;
     color:#2e7d32;
 }
+/* =========================
+   HEALTH ADVISOR
+========================= */
+
+.health-title{
+    color:#2e7d32;
+    font-weight:bold;
+    animation:fadeInDown 1s ease;
+}
+
+.health-btn{
+    background:#4caf50;
+    border:none;
+    border-radius:30px;
+    padding:12px 24px;
+    margin:8px;
+    transition:0.3s;
+}
+
+.health-btn:hover{
+    background:#2e7d32;
+    transform:translateY(-4px) scale(1.05);
+}
+
+.health-card{
+    border-radius:20px;
+    background:white;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    min-height:300px;
+}
+
+.fade-in-item{
+    opacity:0;
+    transform:translateX(-20px);
+    animation:slideIn 0.8s forwards;
+    margin-bottom:12px;
+    font-size:1.05rem;
+}
+
+@keyframes slideIn{
+
+    from{
+        opacity:0;
+        transform:translateX(-20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+@keyframes fadeInDown{
+
+    from{
+        opacity:0;
+        transform:translateY(-20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.aqi-box{
+    background:linear-gradient(
+        135deg,
+        #c8e6c9,
+        #81c784
+    );
+
+    color:#1b5e20;
+
+    border:none;
+
+    border-radius:20px;
+
+    animation:fadeInDown 1s ease;
+}

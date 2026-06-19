@@ -1,4 +1,5 @@
 from flask import Flask, redirect, render_template, request
+
 import requests
 import joblib
 
@@ -6,6 +7,118 @@ import os
 import subprocess
 
 app = Flask(__name__)
+current_aqi = 0
+
+HEALTH_DATA = {
+    "Asthma": {
+        "tips": [
+            "Carry your inhaler at all times.",
+            "Monitor local AQI before going outside.",
+            "Keep windows closed during high pollution.",
+            "Use an air purifier indoors."
+
+        ],
+        "precautions": [
+            "Avoid outdoor exercise when AQI is poor.",
+            "Wear an N95 mask outdoors.",
+            "Avoid smoke, dust, strong perfumes, and chemical fumes.",
+            "Seek medical help if wheezing, chest tightness, or shortness of breath worsens.",
+            "Keep vaccinations (flu and pneumonia, if recommended) up to date."
+        ]
+    },
+
+    "Heart Disease": {
+        "tips": [
+            "Stay hydrated.",
+            "Take prescribed medications regularly.",
+            "Monitor AQI daily.",
+            "Eat a diet rich in vegetables, fruits, whole grains, and legumes.",
+            "Limit salt, sugar, and saturated fats.",
+            "Maintain a healthy weight."
+        ],
+        "precautions": [
+            "Avoid strenuous activities during high AQI.",
+            "Stay indoors when pollution levels rise.",
+            "Seek immediate medical attention for chest pain, severe shortness of breath, or sudden weakness or numbness.",
+            "Manage stress through relaxation techniques."
+        ]
+    },
+
+    "Diabetes": {
+        "tips": [
+            "Drink sufficient water.",
+            "Maintain a balanced diet and fiber rich food.",
+            "Monitor blood sugar regularly.",
+            "Include regular physical activity.",
+            "Follow medication or insulin schedules carefully."
+        ],
+        "precautions": [
+            "Avoid excessive outdoor activity during poor AQI.",
+            "Check feet daily for cuts, blisters, or infections.",
+            "Consult your doctor if symptoms worsen.",
+            "Carry a source of glucose if prone to low blood sugar.",
+            "Avoid sugary drinks and excessive refined carbohydrates."
+        ]
+    },
+
+    "Hypertension": {
+        "tips": [
+            "Reduce salt intake.",
+            "Exercise regularly.",
+            "Monitor blood pressure.",
+            "Eat potassium-rich foods unless restricted by a doctor.",
+            "Limit alcohol consumption.",
+            "Practice stress-management techniques."
+        ],
+        "precautions": [
+            "Avoid stress and pollution exposure.",
+            "Stay hydrated.",
+            "Follow medical advice.",
+            "Limit highly processed foods.",
+            "Seek medical attention for severe headaches, chest pain, or vision changes."
+        ]
+    },   
+
+    
+    "Elderly People": {
+        "tips": [
+            "Stay physically active with walking or light exercises.",
+            "Eat nutrient-dense foods with sufficient protein.",
+            "Drink enough water throughout the day.",
+            "Keep medications organized and taken on time.",
+            "Get adequate sleep.",
+            "Attend regular health checkups."
+        ],
+        "precautions": [
+            "Avoid stress and pollution exposure.",
+            "Stay hydrated.",
+            "Avoid falls by keeping living spaces free of hazards.",
+            "Avoid extreme heat and cold exposure",
+            "Watch for signs of dehydration."
+        ]
+    },    
+
+
+
+    "PCOS": {
+        "tips": [
+            "Eat balanced meals with adequate protein, fiber, and healthy fats.",
+            "Include strength training 2 to 3 times per week to improve insulin sensitivity.",
+            "Drink enough water throughout the day.",
+            "Sleep 7 to 9 hours every night.",
+            "Choose low-glycemic carbohydrates such as whole grains, legumes, vegetables, and fruits.",
+            "Have regular medical follow-ups to monitor hormones, blood sugar, cholesterol, and menstrual health."
+        ],
+        "precautions": [
+            "Do not skip meals frequently, as this may worsen energy levels and cravings.",
+            "Limit trans fats and highly fried foods.",
+            "Monitor for symptoms such as irregular periods, excessive hair growth, acne, unexplained weight gain, or worsening fatigue.",
+            "Work on your gut health by including probiotics and fiber-rich foods."
+                  
+        ]    
+    }
+}
+
 
 
 
@@ -30,13 +143,10 @@ scaler = joblib.load(
 
 
 
-
-
-
-
 API_KEY = os.environ.get(
     "OPENWEATHER_API_KEY"
 )
+
 
 
 # =========================
@@ -87,6 +197,20 @@ def visualization():
 @app.route('/prediction')
 def prediction():
     return render_template('prediction.html')
+
+
+# =========================
+# HEALTH ADVISOR PAGE
+# =========================
+
+@app.route('/health_advisor')
+def health_advisor():
+
+    return render_template(
+        'health_advisor.html',
+        diseases=HEALTH_DATA,
+        current_aqi=current_aqi
+    )
 
 
 # =========================
@@ -194,6 +318,8 @@ def predict_city():
         predicted_aqi = model.predict(
             features_scaled
         )[0]
+        global current_aqi
+        current_aqi = round(predicted_aqi)
 
         # AQI Category
 
@@ -311,6 +437,13 @@ def get_location_name(lat, lon):
         print("Location Error:", e)
 
         return "Unknown Location"
+
+
+
+       
+
+
+
     
 @app.route('/live_dashboard')
 def live_dashboard():
@@ -436,9 +569,13 @@ def predict_location():
 
         features_scaled = scaler.transform(features)
 
+        global current_aqi
+
         predicted_aqi = model.predict(
             features_scaled
         )[0]
+
+        current_aqi = round(predicted_aqi)
 
         if predicted_aqi <= 50:
             category = "Air Quality is Good and Healthy"
@@ -466,7 +603,7 @@ def predict_location():
 
         location_name = get_location_name(lat, lon)
 
-         # Tomorrow AQI Forecast
+        # Tomorrow AQI Forecast
         tomorrow_aqi = round(predicted_aqi * 1.05, 2)
 
         if tomorrow_aqi <= 50:
@@ -488,13 +625,13 @@ def predict_location():
             tomorrow_category = "Severe"
 
         return render_template(
-        'prediction.html',
-         city=location_name,
-         prediction=round(predicted_aqi, 2),
-         category=category,
-         advice=advice,
-         tomorrow_aqi=tomorrow_aqi,
-         tomorrow_category=tomorrow_category
+            'prediction.html',
+            city=location_name,
+            prediction=round(predicted_aqi, 2),
+            category=category,
+            advice=advice,
+            tomorrow_aqi=tomorrow_aqi,
+            tomorrow_category=tomorrow_category
         )
 
     except Exception as e:
@@ -503,6 +640,8 @@ def predict_location():
             'prediction.html',
             error=str(e)
         )
+
+
 # =========================
 # SUSTAINABILITY PAGE
 # =========================
@@ -523,4 +662,4 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=port,
         debug=True
-    )
+    )      
